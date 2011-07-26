@@ -15,12 +15,12 @@ class RoomHandler extends AbstractProcessingHandler
     private $room;
 
     protected $colors = array(
-        Logger::DEBUG       => '',
-        Logger::INFO        => '',
-        Logger::WARNING     => '',
-        Logger::ERROR       => '',
-        Logger::CRITICAL    => '',
-        Logger::ALERT       => '',
+        Logger::DEBUG       => \HipChat::COLOR_YELLOW,
+        Logger::INFO        => \HipChat::COLOR_PURPLE,
+        Logger::WARNING     => \HipChat::COLOR_YELLOW,
+        Logger::ERROR       => \HipChat::COLOR_RED,
+        Logger::CRITICAL    => \HipChat::COLOR_RED,
+        Logger::ALERT       => \HipChat::COLOR_RED,
     );
 
     public function __construct(\HipChat $client, $room)
@@ -33,7 +33,7 @@ class RoomHandler extends AbstractProcessingHandler
     {
         $color = $this->colors[$record['level']];
         
-        $this->client->message_room($this->room, 'Monolog', $record['message'], $this->shouldNotify($record['level']));
+        $this->client->message_room($this->room, 'Monolog', $record['message'], $this->shouldNotify($record['level']), $color);
     }
 
     protected function getColor($level) 
