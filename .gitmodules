@@ -1,0 +1,9 @@
+[submodule "vendors/hipchat-php"]
+	path = vendors/hipchat-php
+	url = https://github.com/hipchat/hipchat-php.git
+[submodule "vendors/monolog"]
+	path = vendors/monolog
+	url = https://github.com/Seldaek/monolog.git
+[submodule "vendors/Symfony/Component/ClassLoader"]
+	path = vendors/Symfony/Component/ClassLoader
+	url = https://github.com/symfony/ClassLoader

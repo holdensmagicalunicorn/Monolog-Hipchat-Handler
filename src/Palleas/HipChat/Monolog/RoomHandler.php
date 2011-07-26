@@ -1,0 +1,53 @@
+<?php
+
+namespace Palleas\HipChat\Monolog;
+
+use Monolog\Logger;
+use Monolog\Handler\AbstractProcessingHandler;
+
+/**
+* 
+*/
+class RoomHandler extends AbstractProcessingHandler
+{
+    private $client;
+    
+    private $room;
+
+    protected $colors = array(
+        Logger::DEBUG       => '',
+        Logger::INFO        => '',
+        Logger::WARNING     => '',
+        Logger::ERROR       => '',
+        Logger::CRITICAL    => '',
+        Logger::ALERT       => '',
+    );
+
+    public function __construct(\HipChat $client, $room)
+    {
+        $this->client = $client;
+        $this->room = $room;
+    }
+
+    protected function write(array $record)
+    {
+        $color = $this->colors[$record['level']];
+        
+        $this->client->message_room($this->room, 'Monolog', $record['message'], $this->shouldNotify($record['level']));
+    }
+
+    protected function getColor($level) 
+    {
+        if (!isset($this->colors[$level])) {
+            throw new Exception\UnexpectedLevelException(sprintf('Log level was not recognized (%d)', $level));
+        }
+
+        return $this->colors[$level];
+    }
+
+    protected function shouldNotify($level) 
+    {
+        return in_array($level, array(Logger::ERROR, Logger::CRITICAL, Logger::ALERT));    
+    }
+
+}
