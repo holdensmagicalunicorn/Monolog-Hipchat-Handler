@@ -23,8 +23,10 @@ class RoomHandler extends AbstractProcessingHandler
         Logger::ALERT       => \HipChat::COLOR_RED,
     );
 
-    public function __construct(\HipChat $client, $room)
+    public function __construct(\HipChat $client, $room, $level = Logger::DEBUG, $bubble = true)
     {
+        parent::__construct($level, $bubble);
+        
         $this->client = $client;
         $this->room = $room;
     }
