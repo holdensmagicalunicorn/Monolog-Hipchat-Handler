@@ -33,7 +33,7 @@ class RoomHandler extends AbstractProcessingHandler
     {
         $color = $this->getColor($record['level']);
         
-        $this->client->message_room($this->room, 'Monolog', $record['message'], $this->shouldNotify($record['level']), $color);
+        $this->client->message_room($this->room, 'Monolog', $record['formatted'], $this->shouldNotify($record['level']), $color);
     }
 
     protected function getColor($level) 
