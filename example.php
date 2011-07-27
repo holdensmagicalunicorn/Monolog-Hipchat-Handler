@@ -1,5 +1,9 @@
 <?php
 
+if ($argc < 2) {
+    exit('Usage: php example.php <token> <room_id>'.PHP_EOL);
+}
+
 if (!isset($argv[1])) {
     throw new \InvalidArgumentException('Please provide a valid hipchat token.');
 }
