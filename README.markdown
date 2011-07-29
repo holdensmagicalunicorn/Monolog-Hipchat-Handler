@@ -36,8 +36,6 @@ That's it, you are ready to use this handler in your application.
 One of the cool things with Symfony2 is how extensible it really is. For example, you may want to use a custom handler for monolog (that would be one hell of a coincidence, right?). All you need to do is to add a few config lines in your configuration file. So, if you are using YML :
 
     parameters:
-        monolog.handler.hipchat.class: Palleas\HipChat\Monolog\RoomHandler
-        hipchat.class: HipChat
         hipchat.api_token: <replace this with your token>
         hipchat.room_id: <replace this with the room id>
 
@@ -46,13 +44,24 @@ One of the cool things with Symfony2 is how extensible it really is. For example
             class: HipChat
             arguments: [%hipchat.api_token%]
 
-        monolog.handler.hipchat:
-            class: %monolog.handler.hipchat.class%
+        acme_demo.handler.hipchat:
+            class: Palleas\HipChat\Monolog\RoomHandler
             arguments:
                 - @hipchat.client
                 - %hipchat.room_id%
                 
 I know it would be cool not to have to create the hipchat services yourself, but I'm not sure a bundle is really worth it. It started as a just-for-fun challenge, and finally I realized it would be cool to instantly warn your company that an error occured on one of your applications.
+
+Finally, just register your service as a monolog handler :
+
+    monolog:
+        handlers:
+            hipchat:
+                type:  service                  # this handler is a "service"
+                id: acme_demo.handler.hipchat   # this is the "id" of the service we've just defined
+                level: info                     # monolog option (it works as any other handlers)
+
+More informations about how to deal with monolog handlers in Symfony2 on [the official documentation](http://symfony.com/doc/current/cookbook/logging/monolog.html).
 
 ## Dependencies ##
 
