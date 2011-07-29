@@ -49,6 +49,7 @@ One of the cool things with Symfony2 is how extensible it really is. For example
             arguments:
                 - @hipchat.client
                 - %hipchat.room_id%
+                - 200                  # logging level for the handler (where 200 = "info")
                 
 I know it would be cool not to have to create the hipchat services yourself, but I'm not sure a bundle is really worth it. It started as a just-for-fun challenge, and finally I realized it would be cool to instantly warn your company that an error occured on one of your applications.
 
@@ -59,7 +60,6 @@ Finally, just register your service as a monolog handler :
             hipchat:
                 type:  service                  # this handler is a "service"
                 id: acme_demo.handler.hipchat   # this is the "id" of the service we've just defined
-                level: info                     # monolog option (it works as any other handlers)
 
 More informations about how to deal with monolog handlers in Symfony2 on [the official documentation](http://symfony.com/doc/current/cookbook/logging/monolog.html).
 
