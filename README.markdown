@@ -61,6 +61,10 @@ Finally, just register your service as a monolog handler :
                 type:  service                  # this handler is a "service"
                 id: acme_demo.handler.hipchat   # this is the "id" of the service we've just defined
 
+As you can see, it works : 
+
+![An example of a HipChat Room registered as a handler for a Symfony2 application](http://github.com/Palleas/Monolog-Hipchat-Handler/raw/master/hipchat_monolog.png)
+
 More informations about how to deal with monolog handlers in Symfony2 on [the official documentation](http://symfony.com/doc/current/cookbook/logging/monolog.html).
 
 ## Dependencies ##
